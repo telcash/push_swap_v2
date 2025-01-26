@@ -23,6 +23,7 @@ static void sort_three(t_stack_node **a)
 static void sort_five(t_stack_node **a, t_stack_node **b)
 {
     t_stack_node *next_bigger;
+    
     while (stack_len(*a) > 3)
         pb(a, b);
     sort_three(a);
