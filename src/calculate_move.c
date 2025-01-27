@@ -1,19 +1,5 @@
 #include "push_swap.h"
 
-static t_stack_node *stack_next_lower(int value, t_stack_node *stack)
-{
-    t_stack_node *next_lower;
-
-    next_lower = NULL;
-    while (stack)
-    {
-        if (stack->value < value && (!next_lower || stack->value > next_lower->value))
-            next_lower = stack;
-        stack = stack->next;
-    }
-    return (next_lower);
-}
-
 static int calculate_cost(t_stack_node *a, t_stack_node *b, int stack_len_a, int stack_len_b)
 {
     int rotate_together;
@@ -26,7 +12,7 @@ static int calculate_cost(t_stack_node *a, t_stack_node *b, int stack_len_a, int
     return (find_min(3, rotate_together, reverse_rotate_together, rotate_separately));
 }
 
-void find_cheapest_move(t_stack_node *a, t_stack_node *b, t_stack_node **a_target, t_stack_node **b_target)
+int find_cheapest_move_ab(t_stack_node *a, t_stack_node *b, t_stack_node **a_target, t_stack_node **b_target)
 {
     int cost;
     int tmp_cost;
@@ -49,4 +35,31 @@ void find_cheapest_move(t_stack_node *a, t_stack_node *b, t_stack_node **a_targe
         }
         a = a->next;
     }
+    return (cost);
+}
+
+int find_cheapest_move_ba(t_stack_node *a, t_stack_node *b, t_stack_node **a_target, t_stack_node **b_target)
+{
+    int cost;
+    int tmp_cost;
+    t_stack_node *tmp;
+    int b_len;
+
+    cost = INT_MAX;
+    b_len = stack_len(b);
+    while (b)
+    {
+        tmp = stack_next_bigger(b->value, a);
+        if (!tmp)
+            tmp = stack_min(a);
+        tmp_cost = calculate_cost(tmp, b, stack_len(a), b_len);
+        if (tmp_cost < cost)
+        {
+            cost = tmp_cost;
+            *a_target = tmp;
+            *b_target = b;
+        }
+        b = b->next;
+    }
+    return (cost);
 }

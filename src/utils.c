@@ -56,3 +56,10 @@ int find_max(int count, ...)
     va_end(args);
     return (max);
 }
+
+int ft_abs(int a, int b)
+{
+    if (a > b)
+        return (a - b);
+    return (b - a);
+}

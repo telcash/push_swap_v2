@@ -41,18 +41,30 @@ int stack_len(t_stack_node *stack)
     return (len);
 }
 
-t_stack_node *stack_next_bigger(t_stack_node *stack, int value)
+t_stack_node *stack_next_bigger(int value, t_stack_node *stack)
 {
     t_stack_node *next_bigger;
 
-    next_bigger = stack_max(stack);
-    if (value > next_bigger->value)
-        return (next_bigger);
+    next_bigger = NULL;
     while (stack)
     {
-        if (stack->value > value && stack->value < next_bigger->value)
+        if (stack->value > value && (!next_bigger || stack->value < next_bigger->value))
             next_bigger = stack;
         stack = stack->next;
     }
     return (next_bigger);
+}
+
+t_stack_node *stack_next_lower(int value, t_stack_node *stack)
+{
+    t_stack_node *next_lower;
+
+    next_lower = NULL;
+    while (stack)
+    {
+        if (stack->value < value && (!next_lower || stack->value > next_lower->value))
+            next_lower = stack;
+        stack = stack->next;
+    }
+    return (next_lower);
 }

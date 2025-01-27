@@ -23,13 +23,15 @@ static void sort_three(t_stack_node **a)
 static void sort_five(t_stack_node **a, t_stack_node **b)
 {
     t_stack_node *next_bigger;
-    
+
     while (stack_len(*a) > 3)
         pb(a, b);
     sort_three(a);
     while (*b)
     {
-        next_bigger = stack_next_bigger(*a, (*b)->value);
+        next_bigger = stack_next_bigger((*b)->value, *a);
+        if (!next_bigger)
+            next_bigger = stack_max(*a);
         if (next_bigger->value > (*b)->value)
             rotate_to_top(a, next_bigger);
         else
@@ -47,13 +49,24 @@ static void sort_general(t_stack_node **a, t_stack_node **b)
     pb(a, b);
     while (*a)
     {
+        if (stack_len(*a) == 5)
+            sort_five(a, b);
+        if (is_stack_sorted(*a))
+            break ;
         a_target = NULL;
         b_target = NULL;
-        find_cheapest_move(*a, *b, &a_target, &b_target);
+        find_cheapest_move_ab(*a, *b, &a_target, &b_target);
         execute_move(a, b, &a_target, &b_target);
+        pb(a, b);
     }
     while (*b)
+    {
+        a_target = NULL;
+        b_target = NULL;
+        find_cheapest_move_ba(*a, *b, &a_target, &b_target);
+        execute_move(a, b, &a_target, &b_target);
         pa(a, b);
+    }
     rotate_to_top(a, stack_min(*a));
 }
 

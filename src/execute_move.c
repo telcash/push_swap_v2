@@ -59,5 +59,5 @@ void execute_move(t_stack_node **a, t_stack_node **b, t_stack_node **a_target, t
         execute_move_reverse_rotate_together(a, b, a_target, b_target);
     else
         execute_move_rotate_separately(a, b, a_target, b_target);
-    pb(a, b);
+    //pb(a, b);
 }

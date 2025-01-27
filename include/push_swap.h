@@ -14,7 +14,8 @@ typedef struct s_stack_node
 
 int                     *check_args(char **args);
 void                    push_swap(t_stack_node **a, t_stack_node **b);
-void                    find_cheapest_move(t_stack_node *a, t_stack_node *b, t_stack_node **a_target, t_stack_node **b_target);
+int                     find_cheapest_move_ab(t_stack_node *a, t_stack_node *b, t_stack_node **a_target, t_stack_node **b_target);
+int                     find_cheapest_move_ba(t_stack_node *a, t_stack_node *b, t_stack_node **a_target, t_stack_node **b_target);
 void                    execute_move(t_stack_node **a, t_stack_node **b, t_stack_node **a_target, t_stack_node **b_target);
 void                    push(t_stack_node **dst, t_stack_node **src);
 void                    swap(t_stack_node **stack);
@@ -41,8 +42,10 @@ void                    refresh_index(t_stack_node **stack);
 t_stack_node            *stack_min(t_stack_node *stack);
 t_stack_node            *stack_max(t_stack_node *stack);
 int                     stack_len(t_stack_node *stack);
-t_stack_node            *stack_next_bigger(t_stack_node *stack, int value);
+t_stack_node            *stack_next_bigger(int value, t_stack_node *stack);
+t_stack_node            *stack_next_lower(int value, t_stack_node *stack);
 long long               ft_atol(const char *nptr);
 int                     find_min(int count, ...);
 int                     find_max(int count, ...);
+int                     ft_abs(int a, int b);
 #endif

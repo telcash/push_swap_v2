@@ -41,6 +41,11 @@ int main (int argc, char **argv)
         return (1);
     }
     push_swap(&a, &b);
+    /* while (a) {
+        ft_putnbr_fd(a->value, 1);
+        ft_putstr_fd("\n", 1);
+        a = a->next;
+    } */
     if (argc == 2)
         free_matrix(args);
     free_stack(&a);

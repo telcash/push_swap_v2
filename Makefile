@@ -20,7 +20,7 @@ LIBFT = libft
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = main.c input_check.c push_swap.c calculate_move.c execute_move.c \
+SRC_FILES = main.c input_check.c stack_init.c push_swap.c calculate_move.c execute_move.c \
 			actions.c actions2.c push_actions.c swap_actions.c rotate_actions.c reverse_rotate_actions.c \
 			stack_utils.c stack_utils2.c utils.c
 			
